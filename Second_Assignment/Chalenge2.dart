@@ -1,8 +1,8 @@
 void main() {
   var bert = Student("Bert", "Johnson", 85);
   var ernie = Student("Ernie", "Johnson", 95);
-  print(bert);
-  print(ernie);
+  print(bert.toJson());
+  print(ernie.toJson());
 }
 
 class Student {
@@ -12,7 +12,7 @@ class Student {
   final String lastName;
   int grade;
 
-  String toString() {
-    return "First name: $firstName \nLast name: $lastName \nGrade: $grade";
+  String toJson() {
+    return '{"firstName"="$firstName" "lastName"="$lastName" "grade"=$grade}';
   }
 }

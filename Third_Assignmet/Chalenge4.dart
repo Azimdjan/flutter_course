@@ -1,5 +1,3 @@
-import 'dart:io';
-
 void main() {
   final user1 = User("u1910293", "Azim");
   final user2 = User("u1910276", "Karim");
@@ -16,8 +14,8 @@ class User {
   final _id;
   final _name;
   User(String id, String name)
-      : assert(!id.isEmpty || id != null),
-        assert(!name.isEmpty || name != null),
+      : assert(!id.isEmpty),
+        assert(!name.isEmpty),
         _id = id,
         _name = name;
 }

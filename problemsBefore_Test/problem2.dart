@@ -1,5 +1,9 @@
+import 'dart:io';
+
 void main() {
-  Rectangle rectangle = Rectangle(14, 32);
+  double length = double.parse(stdin.readLineSync()!);
+  double width = double.parse(stdin.readLineSync()!);
+  Rectangle rectangle = Rectangle(length, width);
   print(rectangle);
 }
 

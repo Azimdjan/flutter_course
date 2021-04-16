@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
-void main() async {
+void main() {
   Write();
   Read();
   // for (int i = 0; i < 7; i++) {
@@ -21,14 +21,14 @@ void Write() async {
   final filename = 'file.txt';
   print("Please enter coins and sum: ");
   String coins = stdin.readLineSync()!;
-  var file = await File(filename).writeAsString(coins);
+  await File(filename).writeAsString(coins);
   // print("Please enter sum: ");
   // String sum = stdin.readLineSync()!;
   // file = await File(filename).writeAsString(sum);
 }
 
 void Read() async {
-  final file = File('Myfile.txt');
+  final file = File('file.txt');
   List<String> string_lines = [];
   List<int> coins = [];
   Stream<String> lines = file

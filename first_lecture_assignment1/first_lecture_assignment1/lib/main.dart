@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'Recipe.dart';
 import 'RecipeDetail.dart';
 
@@ -69,7 +70,6 @@ class _MyHomePageState extends State<MyHomePage> {
         boxShadow: [
           BoxShadow(
             color: Colors.white70,
-            spreadRadius: 5,
             blurRadius: 7,
             offset: Offset(0,3),
           )
@@ -80,7 +80,12 @@ class _MyHomePageState extends State<MyHomePage> {
           padding: const EdgeInsets.all(16.0),
       child: Column(
         children: <Widget>[
-          Image(image: AssetImage(recipe.imageUrl),),
+          Container(
+            decoration: const BoxDecoration(
+            // shape: BoxShape.circle,
+      ),
+            child: Image(image: AssetImage(recipe.imageUrl),),
+          ),
           SizedBox(
             height: 14.0,
           ),

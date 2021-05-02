@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/models/explore_recipe.dart';
 import 'package:flutter_app/screens/explore_screen.dart';
+import 'package:flutter_app/screens/recipes_screen.dart';
 
 import 'componets/Card1.dart';
 import 'componets/Card2.dart';
@@ -16,7 +17,7 @@ class _HomeState extends State{
   int _selectedIndex = 0;
   static List<Widget> pages = [
     ExploreScreen(),
-    Container(color: Colors.green),
+    RecipeScreen(),
     Container(color: Colors.blue),
   ];
   void _onItemTapped(int index){

@@ -18,7 +18,7 @@ class _HomeState extends State{
   static List<Widget> pages = [
     ExploreScreen(),
     RecipeScreen(),
-    Container(color: Colors.blue),
+    Container(color: Colors.blue, child:Center(child:Text("In the upcoming version!"))),
   ];
   void _onItemTapped(int index){
     setState(() {

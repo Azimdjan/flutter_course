@@ -1,5 +1,6 @@
 
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_app/componets/circularImage.dart';
 import 'package:flutter_app/models/models.dart';
 
@@ -21,7 +22,31 @@ class FriendPostTile extends StatelessWidget{
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(post.comment),
-                Text("${post.timestamp} mins ago", style: TextStyle(fontWeight: FontWeight.w700),),
+                Text.rich(
+                  TextSpan(
+                    text: "${post.timestamp} ",
+                    style: TextStyle(
+                      color: Colors.grey,
+                      fontWeight: FontWeight.bold
+                    ),
+                    children: [
+                      TextSpan(
+                        text: "mins ",
+                        style: TextStyle(
+                          color: Colors.blueGrey,
+                          fontWeight: FontWeight.w100,
+                        ),
+                      ),
+                      TextSpan(
+                        text: "ago",
+                        style: TextStyle(
+                          color: Colors.greenAccent,
+                          fontWeight: FontWeight.w400,
+                        )
+                      )
+                    ]
+                  )
+                )
               ],
             )
           ),

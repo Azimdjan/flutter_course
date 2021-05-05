@@ -3,11 +3,12 @@ import 'package:flutter/material.dart';
 abstract class AppTheme {
   static ThemeData lightTheme() => ThemeData(
     appBarTheme: const AppBarTheme(
+      shadowColor: Colors.white,
       color: Color(0xffffffff),
     ),
     fontFamily: 'Roboto',
-    scaffoldBackgroundColor: const Color(0xffF3F5F4),
-    canvasColor: const Color(0xffF3F5F4),
+    scaffoldBackgroundColor: const Color(0xffffffff),
+    canvasColor: const Color(0xffffffff),
     textTheme: const TextTheme(
       bodyText1: regularPostText,
       bodyText2: regularMainSecondText,
@@ -87,26 +88,26 @@ abstract class AppTheme {
 
 
   static const regularMainSecondText = TextStyle(
-    fontSize: 5,
+    fontSize: 10,
     fontWeight: FontWeight.bold,
     color: mainLight,
   );
   static const regular16Grey600 = TextStyle(
     fontFamily: 'Roboto medium',
-    fontSize: 11,
+    fontSize: 22,
     color: darkGrey,
   );
   static const regularTextFirst = TextStyle(
       fontFamily: 'Roboto black',
-      fontSize: 24,
+      fontSize: 36,
       color: textFirst);
   static const regular10Grey = TextStyle(
     fontFamily: 'Roboto regular',
-    fontSize: 10,
+    fontSize: 16,
     color: grey,
   );
   static const bold20Black = TextStyle(
-    fontSize: 24,
+    fontSize: 36,
     fontWeight: FontWeight.bold,
     color: mainDark,
   );
@@ -117,7 +118,7 @@ abstract class AppTheme {
   );
   static const regularPostText = TextStyle(
     fontFamily: 'Rubik',
-    fontSize: 7,
+    fontSize: 12,
     color: regularText,
   );
 }

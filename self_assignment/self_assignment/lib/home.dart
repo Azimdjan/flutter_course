@@ -16,19 +16,26 @@ class MyHomePage extends StatelessWidget {
           child: Stack(
             children: [
               Positioned(
-                top: 13,
-                left: 12,
+                top: 18,
+                left: 0,
                 child: Text("Ramble",style: Theme.of(context).textTheme.headline2,),
               ),
               Positioned(
-                top: 42,
-                left: 13,
-                child: Text("Make yourself an unforgettable adventure!",style: Theme.of(context).textTheme.bodyText1,),
+                top: 58,
+                left: 0,
+                child: Text("Make yourself an unforgettable\nadventure!",style: Theme.of(context).textTheme.bodyText1,),
+              ),
+              Positioned(
+                right: 0,
+                top: 18,
+                child: Profile()
               )
             ],
           )
         ),
       ),
+      body: HomeScreen(),
+      bottomNavigationBar: NavigationBar(),
     );
   }
 }

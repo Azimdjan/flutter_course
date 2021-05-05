@@ -6,13 +6,18 @@ class TextInputBox extends StatelessWidget{
 
   @override
   Widget build(BuildContext context) {
-    return Material(
-      shadowColor: Colors.black,
-        elevation: 10,
-        child: Container(
+    return Container(
           constraints: BoxConstraints.expand(width: double.infinity,height: 40),
           decoration: BoxDecoration(
+            color: Colors.white,
             borderRadius: BorderRadius.circular(32),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withOpacity(0.2),
+                blurRadius: 16,
+                offset: Offset(0.0,0.75)
+              )
+            ]
           ),
           child: TextField(
             decoration: InputDecoration(
@@ -35,7 +40,6 @@ class TextInputBox extends StatelessWidget{
               fillColor: Colors.white,
             ),
           ),
-        )
-    );
+        );
   }
 }

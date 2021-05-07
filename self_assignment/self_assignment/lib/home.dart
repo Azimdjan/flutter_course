@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:provider/provider.dart';
 import 'package:self_assignment/components/components.dart';
 import 'package:self_assignment/screens/home_screen.dart';
+import 'package:self_assignment/screens/screen_manager.dart';
 import 'package:self_assignment/themes/themes.dart';
 
 class MyHomePage extends StatelessWidget {
@@ -9,7 +11,7 @@ class MyHomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
+        appBar: AppBar(
         toolbarHeight: 100,
         title: Container(
           constraints: BoxConstraints.expand(width: double.infinity,height: 100),
@@ -34,8 +36,10 @@ class MyHomePage extends StatelessWidget {
           )
         ),
       ),
-      body: HomeScreen(),
-      bottomNavigationBar: NavigationBar(),
-    );
+        body: Consumer<ScreenManager>(
+          builder: (context,navi,child)=>ScreenManager.screens[navi.currentIndex],
+        ),
+        bottomNavigationBar: NavigationBar(),
+      );
   }
 }

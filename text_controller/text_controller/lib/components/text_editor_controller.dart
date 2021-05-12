@@ -6,6 +6,7 @@ import 'package:text_controller/components/LoginButton.dart';
 class InputTextField extends StatefulWidget{
   final String hint;
   final bool isPassword;
+  static bool isButton = true;
   InputTextField({this.hint,this.isPassword=false,});
 
   @override
@@ -17,16 +18,15 @@ class _InputTextFieldState extends State<InputTextField> {
 
   @override
   void initState(){
+    if(controller.text.trim()=="" || controller.text.trim().isEmpty){
+      InputTextField.isButton = true;
+    }
+    else {
+      InputTextField.isButton = false;
+    }
     super.initState();
-    controller.addListener(checking);
   }
 
-  checking(){
-    if(controller.text !=null || controller.text =="")
-      Checking.isDisabled = false;
-    else
-      Checking.isDisabled = true;
-  }
   @override
   void dispose(){
     controller.dispose();
@@ -35,11 +35,9 @@ class _InputTextFieldState extends State<InputTextField> {
   @override
   Widget build(BuildContext context) {
     return CupertinoTextField(
-      // onChanged: (String val){
-      //   setState(() {
-      //     ;
-      //   });
-      // },
+      onChanged: (text){
+
+      },
       controller: controller,
       padding: EdgeInsets.all(16),
       obscureText: widget.isPassword,

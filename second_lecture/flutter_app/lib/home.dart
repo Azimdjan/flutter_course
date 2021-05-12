@@ -6,6 +6,8 @@ import 'package:flutter_app/screens/groceryScreen.dart';
 import 'package:flutter_app/screens/recipes_screen.dart';
 import 'package:provider/provider.dart';
 
+import 'api/mock_fooderlich_service.dart';
+
 class Home extends StatefulWidget{
   const Home();
   @override
@@ -28,35 +30,42 @@ class _HomeState extends State {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<TabManager>(builder: (context, tabManager, child) {
-      return Scaffold(
-        appBar: AppBar(
-            title: Text("Fooderlich",
-              style: Theme.of(context).textTheme.headline6,)
-        ),
-        body: Container(
-          child: pages[tabManager.selectedTab],
-        ),
-        bottomNavigationBar: BottomNavigationBar(
-          selectedItemColor: Theme.of(context).textSelectionColor,
-          items: [
-            BottomNavigationBarItem(
-                icon: Icon(Icons.explore),
-                label: "Explore"),
-            BottomNavigationBarItem(
-                icon: Icon(Icons.book),
-                label: "Recipes"),
-            BottomNavigationBarItem(
-                icon: Icon(Icons.list),
-                label: "To Buy"),
-          ],
-          currentIndex: tabManager.selectedTab,
-          onTap: (index){
-            tabManager.goToTab(index);
-          },
-        ),
-      );
-    }
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (context)=>TabManager()),
+        ChangeNotifierProvider(create: (context)=>GroceryManager()),
+        ChangeNotifierProvider(create: (context)=>MockFooderlichService()),
+      ],
+      child: Consumer<TabManager>(builder: (context, tabManager, child) {
+        return Scaffold(
+          appBar: AppBar(
+              title: Text("Fooderlich",
+                style: Theme.of(context).textTheme.headline6,)
+          ),
+          body: Container(
+            child: pages[tabManager.selectedTab],
+          ),
+          bottomNavigationBar: BottomNavigationBar(
+            selectedItemColor: Theme.of(context).textSelectionColor,
+            items: [
+              BottomNavigationBarItem(
+                  icon: Icon(Icons.explore),
+                  label: "Explore"),
+              BottomNavigationBarItem(
+                  icon: Icon(Icons.book),
+                  label: "Recipes"),
+              BottomNavigationBarItem(
+                  icon: Icon(Icons.list),
+                  label: "To Buy"),
+            ],
+            currentIndex: tabManager.selectedTab,
+            onTap: (index){
+              tabManager.goToTab(index);
+            },
+          ),
+        );
+      }
+      ),
     );
   }
 }

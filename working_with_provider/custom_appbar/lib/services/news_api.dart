@@ -8,7 +8,7 @@ Dio dio = Dio(globals.dioBaseOptions);
 class NewsApiService {
   Future<Welcome> getArticle() async {
     try{
-      final Response response = await dio.get('everything?q=Apple&apiKey=71059a060729480c87097fc8d03d1f6f');
+      final Response response = await dio.get('everything?q=Samsung&apiKey=71059a060729480c87097fc8d03d1f6f');
       print(response.data);
       Welcome welcome = Welcome.fromJson(response.data);
       return welcome;

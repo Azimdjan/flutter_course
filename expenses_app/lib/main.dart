@@ -1,6 +1,9 @@
-import 'package:expenses_app/transaction.dart';
+import 'package:expenses_app/widgets/chartWidget.dart';
+import 'package:expenses_app/widgets/new_transaction.dart';
+import 'package:expenses_app/widgets/transactionList.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
+
+import 'models/transaction.dart';
 
 void main() {
   runApp(MyApp());
@@ -11,105 +14,114 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.purple,
+        accentColor: Colors.amber,
+        fontFamily: 'Quicksand',
+        textTheme: ThemeData.light().textTheme.copyWith(
+            title: TextStyle(
+              fontFamily: 'OpenSans',
+              fontSize: 18,
+              fontWeight: FontWeight.w700,
+            ),
+            button: TextStyle(
+              color: Colors.white,
+            )),
+        appBarTheme: AppBarTheme(
+          textTheme: ThemeData.light().textTheme.copyWith(
+                title: TextStyle(
+                  fontFamily: 'OpenSans',
+                  fontSize: 20,
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
+        ),
       ),
-      home: MyHomePage(),
+      home: ExpensesApp(),
     );
   }
 }
 
-class MyHomePage extends StatelessWidget {
-  final List<Transaction> transactions = [
-    Transaction(
-      id: '1',
-      title: 'For party',
-      amount: 999.99,
-      time: DateTime.now(),
-    ),
-    Transaction(
-      id: '2',
-      title: 'For education',
-      amount: 9999.99,
-      time: DateTime.now(),
-    ),
-    Transaction(
-      id: '3',
-      title: 'For relax',
-      amount: 99.99,
-      time: DateTime.now(),
-    ),
-  ];
+class ExpensesApp extends StatefulWidget {
+  const ExpensesApp({Key key}) : super(key: key);
+
+  @override
+  _ExpensesAppState createState() => _ExpensesAppState();
+}
+
+class _ExpensesAppState extends State<ExpensesApp> {
+  final List<Transaction> transactions = [];
+
+  void _addTransaction(String title, double amount, DateTime choosenDate) {
+    final newTr = Transaction(
+      id: DateTime.now().toString(),
+      title: title,
+      amount: amount,
+      time: choosenDate,
+    );
+
+    setState(() {
+      transactions.add(newTr);
+    });
+  }
+
+  void deleteTransaction(String id){
+    setState(() {
+      transactions.removeWhere((element) => id == element.id);
+    });
+  }
+
+  List<Transaction> get recentTransaction {
+    return transactions
+        .where(
+          (tr) => tr.time.isAfter(
+            DateTime.now().subtract(
+              Duration(days: 7),
+            ),
+          ),
+        )
+        .toList();
+  }
+
+  void _startAddNewTransaction(BuildContext context) {
+    showModalBottomSheet(
+        context: context,
+        builder: (BuildContext context) {
+          return GestureDetector(
+            onTap: () {},
+            child: NewTransaction(_addTransaction),
+            behavior: HitTestBehavior.opaque,
+          );
+        });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: Text("Expenses App"),
-        ),
-        body: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
+      floatingActionButton: FloatingActionButton(
+          child: Icon(Icons.add),
+          onPressed: () => _startAddNewTransaction(context)),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      appBar: AppBar(
+        title: Text("Expenses App"),
+        actions: [
+          IconButton(
+              icon: Icon(Icons.add),
+              onPressed: () => _startAddNewTransaction(context)),
+        ],
+      ),
+      body: SingleChildScrollView(
+        child: Column(
+          //crossAxisAlignment: CrossAxisAlignment.stretch,
+          //mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            Card(
-              color: Colors.blue,
-              child: Text(
-                "Expenses!",
-                textAlign: TextAlign.center,
-              ),
-            ),
-            Column(
-              children: transactions
-                  .map((tr) => Card(
-                        color: Colors.white,
-                        child: Row(
-                          children: [
-                            Container(
-                              margin: const EdgeInsets.symmetric(
-                                  vertical: 10, horizontal: 15),
-                              padding: const EdgeInsets.symmetric(
-                                  vertical: 10, horizontal: 10),
-                              decoration: BoxDecoration(
-                                border: Border.all(
-                                  color: Colors.purple,
-                                  width: 2,
-                                ),
-                              ),
-                              child: Text(
-                                "\$${tr.amount}",
-                                style: TextStyle(
-                                  color: Colors.purple,
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  tr.title,
-                                  style: TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                                Text(
-                                  DateFormat.yMMMEd().format(tr.time),
-                                  style: TextStyle(
-                                    color: Colors.grey,
-                                    fontStyle: FontStyle.italic,
-                                  ),
-                                )
-                              ],
-                            )
-                          ],
-                        ),
-                      ))
-                  .toList(),
-            )
+            ChartWidget(recentTransaction),
+            TransactionList(transactions,deleteTransaction),
           ],
-        ));
+        ),
+      ),
+    );
   }
 }

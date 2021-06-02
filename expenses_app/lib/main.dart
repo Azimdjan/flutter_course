@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:expenses_app/widgets/chartWidget.dart';
 import 'package:expenses_app/widgets/new_transaction.dart';
 import 'package:expenses_app/widgets/transactionList.dart';
@@ -53,6 +55,7 @@ class ExpensesApp extends StatefulWidget {
 
 class _ExpensesAppState extends State<ExpensesApp> {
   final List<Transaction> transactions = [];
+  bool _isChart = false;
 
   void _addTransaction(String title, double amount, DateTime choosenDate) {
     final newTr = Transaction(
@@ -67,7 +70,7 @@ class _ExpensesAppState extends State<ExpensesApp> {
     });
   }
 
-  void deleteTransaction(String id){
+  void deleteTransaction(String id) {
     setState(() {
       transactions.removeWhere((element) => id == element.id);
     });
@@ -99,26 +102,68 @@ class _ExpensesAppState extends State<ExpensesApp> {
 
   @override
   Widget build(BuildContext context) {
+    final isLandscape =
+        MediaQuery.of(context).orientation == Orientation.landscape;
+    final appBar = AppBar(
+      title: Text("Expenses App"),
+      actions: [
+        IconButton(
+            icon: Icon(Icons.add),
+            onPressed: () => _startAddNewTransaction(context)),
+      ],
+    );
+    final transactionList = Container(
+      height: MediaQuery.of(context).size.height * 0.6 -
+          appBar.preferredSize.height -
+          MediaQuery.of(context).padding.top,
+      child: TransactionList(transactions, deleteTransaction),
+    );
     return Scaffold(
-      floatingActionButton: FloatingActionButton(
-          child: Icon(Icons.add),
-          onPressed: () => _startAddNewTransaction(context)),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-      appBar: AppBar(
-        title: Text("Expenses App"),
-        actions: [
-          IconButton(
-              icon: Icon(Icons.add),
+      floatingActionButton: Platform.isIOS
+          ? Container()
+          : FloatingActionButton(
+              child: Icon(Icons.add),
               onPressed: () => _startAddNewTransaction(context)),
-        ],
-      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      appBar: appBar,
       body: SingleChildScrollView(
         child: Column(
           //crossAxisAlignment: CrossAxisAlignment.stretch,
           //mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            ChartWidget(recentTransaction),
-            TransactionList(transactions,deleteTransaction),
+            if (isLandscape)
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text("Show chart!"),
+                  Switch.adaptive(
+                    activeColor: Theme.of(context).accentColor,
+                    value: _isChart,
+                    onChanged: (val) {
+                      setState(() {
+                        _isChart = val;
+                      });
+                    },
+                  ),
+                ],
+              ),
+            if (isLandscape)
+              _isChart
+                  ? Container(
+                      height: MediaQuery.of(context).size.height * 0.7 -
+                          appBar.preferredSize.height -
+                          MediaQuery.of(context).padding.top,
+                      child: ChartWidget(recentTransaction),
+                    )
+                  : transactionList,
+            if (!isLandscape)
+              Container(
+                height: MediaQuery.of(context).size.height * 0.4 -
+                    appBar.preferredSize.height -
+                    MediaQuery.of(context).padding.top,
+                child: ChartWidget(recentTransaction),
+              ),
+            if (!isLandscape) transactionList,
           ],
         ),
       ),

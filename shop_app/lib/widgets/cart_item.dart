@@ -25,7 +25,7 @@ class CartItem extends StatelessWidget {
       background: Container(
         alignment: Alignment.centerRight,
         color: Theme.of(context).errorColor,
-        margin: const EdgeInsets.symmetric(horizontal: 15,vertical: 4),
+        margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 4),
         padding: const EdgeInsets.only(right: 20),
         child: Icon(
           Icons.delete,
@@ -34,8 +34,40 @@ class CartItem extends StatelessWidget {
         ),
       ),
       key: ValueKey(id),
-      onDismissed: (direction){
+      onDismissed: (direction) {
         cart.removeCart(productId);
+      },
+      confirmDismiss: (direction) {
+        return showDialog(
+            context: context,
+            barrierColor: Theme.of(context).primaryColor.withOpacity(0.1),
+            builder: (ctx) => AlertDialog(
+                  backgroundColor: Theme.of(context).primaryColor,
+                  title: Text(
+                    "Are you sure?",
+                    style: TextStyle(
+                        color: Theme.of(context).primaryColorLight),
+                  ),
+                  content: Text(
+                    "Do you want to remove item from the cart?",
+                    style: TextStyle(
+                        color: Theme.of(context).primaryColorLight),
+                  ),
+                  actions: [
+                    FlatButton(
+                      onPressed: () {
+                        Navigator.of(context).pop(false);
+                      },
+                      child: Text("No"),
+                    ),
+                    FlatButton(
+                      onPressed: () {
+                        Navigator.of(context).pop(true);
+                      },
+                      child: Text("Yes"),
+                    ),
+                  ],
+                ));
       },
       child: Card(
         margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 4),
@@ -55,7 +87,7 @@ class CartItem extends StatelessWidget {
               title,
               style: TextStyle(fontWeight: FontWeight.bold),
             ),
-            subtitle: Text("Total: \$${price * quantity}"),
+            subtitle: Text("Total: \$${(price * quantity).toStringAsFixed(2)}"),
             trailing: Text("$quantity x"),
           ),
         ),

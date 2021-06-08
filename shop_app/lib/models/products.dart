@@ -37,15 +37,36 @@ class Products with ChangeNotifier {
     ),
   ];
 
-  Product getProductById(String id){
-    return _products.firstWhere((element) => element.id==id);
+  Product getProductById(String id) {
+    return _products.firstWhere((element) => element.id == id);
   }
 
-  List<Product> get favoriteProducts{
+  List<Product> get favoriteProducts {
     return _products.where((element) => element.isFavourite).toList();
   }
 
-  List<Product> get products{
+  List<Product> get products {
     return _products;
+  }
+
+  void deleteProduct(String id){
+    _products.removeWhere((element) => element.id==id);
+    notifyListeners();
+  }
+
+  void updateProduct(String id, Product product){
+    final index = _products.indexWhere((element) => element.id == id);
+    _products[index] = product;
+    notifyListeners();
+  }
+
+  void addProduct(Product product) {
+    final tempProduct = Product(id: DateTime.now().toString(),
+      title: product.title,
+      description: product.description,
+      price: product.price,
+      imageUrl: product.imageUrl,);
+    _products.insert(0, tempProduct);
+    notifyListeners();
   }
 }

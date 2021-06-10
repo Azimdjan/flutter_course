@@ -1,5 +1,6 @@
 import 'package:custom_appbar/model/article.dart';
 import 'package:custom_appbar/models/CardView.dart';
+import 'package:custom_appbar/screens/loadingIndicator.dart';
 import 'package:custom_appbar/services/news_api.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -22,7 +23,7 @@ class MainScreen extends StatelessWidget{
                       future: welcome.getArticle(),
                       builder: (context, AsyncSnapshot<Welcome>snapshot){
                         if(snapshot.connectionState != ConnectionState.done){
-                          return Center(child:CircularProgressIndicator());
+                          return Center(child:LoadingIndicator());
                         }else {
                           var articles = snapshot.data.articles;
                           return ListView.builder(

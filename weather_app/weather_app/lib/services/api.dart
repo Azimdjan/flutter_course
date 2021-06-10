@@ -1,5 +1,4 @@
 import 'package:dio/dio.dart';
-import 'package:flutter/material.dart';
 import 'package:weather_app/common/globals.dart' as globals;
 import 'package:weather_app/models/weather.dart';
 

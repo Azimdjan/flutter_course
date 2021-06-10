@@ -18,7 +18,8 @@ class ProductsScreen extends StatelessWidget {
         actions: [
           IconButton(
             onPressed: () {
-              Navigator.of(context).pushNamed(AddProductScreen.routeName,arguments: 'add');
+              Navigator.of(context)
+                  .pushNamed(AddProductScreen.routeName, arguments: 'add');
             },
             icon: Icon(Icons.add),
           ),
@@ -29,9 +30,9 @@ class ProductsScreen extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 5),
         itemCount: productsData.products.length,
         itemBuilder: (_, index) => UserProductItem(
-            productsData.products[index].id,
-            productsData.products[index].title,
-            productsData.products[index].imageUrl),
+                productsData.products[index].id,
+                productsData.products[index].title,
+                productsData.products[index].imageUrl),
       ),
     );
   }

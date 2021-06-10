@@ -42,9 +42,7 @@ class _HomeState extends State {
               title: Text("Fooderlich",
                 style: Theme.of(context).textTheme.headline6,)
           ),
-          body: Container(
-            child: pages[tabManager.selectedTab],
-          ),
+          body: IndexedStack(index: tabManager.selectedTab, children: pages,),
           bottomNavigationBar: BottomNavigationBar(
             selectedItemColor: Theme.of(context).textSelectionColor,
             items: [

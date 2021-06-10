@@ -23,7 +23,7 @@ class Welcome_Screen extends StatelessWidget{
             color: Colors.white,
               textColor: Colors.black,
               onPressed: (){
-                Navigator.push(context, createRoute(Home()));
+                Navigator.pushReplacement(context, createRoute(Home()));
               }, 
               child: Text("Enter"))
         ],

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:shimmer/shimmer.dart';
 import 'package:weather_app/models/BottomText.dart';
 import 'package:weather_app/models/weather.dart';
+import 'package:weather_app/screens/loadingIndicator.dart';
 import 'package:weather_app/services/api.dart';
 
 class MainScreen extends StatelessWidget{
@@ -27,7 +29,7 @@ class MainScreen extends StatelessWidget{
               future: welcome.getWeather(),
               builder: (context,snapshot){
                 if(snapshot.connectionState !=ConnectionState.done){
-                  return Center(child: CircularProgressIndicator(),);
+                  return Center(child: LoadingIndicator(),);
                 }
                 else{
                   return BottomText(weatherText: snapshot.data.weather[0].main,

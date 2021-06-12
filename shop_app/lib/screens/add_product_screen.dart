@@ -65,12 +65,9 @@ class _AddProductScreenState extends State<AddProductScreen> {
             .addProduct(_currentProduct);
         print('hello');
       } else {
-        setState(() {
-          isLoading = false;
-        });
-        Provider.of<Products>(context, listen: false)
+        await Provider.of<Products>(context, listen: false)
             .updateProduct(_currentProduct.id, _currentProduct);
-        Navigator.of(context).pop();
+        // Navigator.of(context).pop();
       }
     } catch (error) {
       await showDialog(

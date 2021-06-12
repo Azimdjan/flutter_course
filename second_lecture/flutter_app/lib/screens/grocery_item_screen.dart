@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/componets/grocery_tile.dart';
+import 'package:flutter_app/models/fooderlich_pages.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:intl/intl.dart';
@@ -8,11 +9,30 @@ import 'package:uuid/uuid.dart';
 
 class GroceryItemScreen extends StatefulWidget {
   final Function(GroceryItem) onCreate;
-  final Function(GroceryItem) onUpdate;
+  final Function(GroceryItem,int) onUpdate;
   final GroceryItem originalItem;
+  final int index;
   final bool isUpdating;
 
-  GroceryItemScreen({this.onCreate, this.onUpdate, this.originalItem})
+  static MaterialPage page({
+  GroceryItem item,
+    int index,
+    Function(GroceryItem) onCreate,
+    Function(GroceryItem, int) onUpdate,
+}){
+    return MaterialPage(
+      name: FooderlichPages.groceryItemDetails,
+      key: ValueKey(FooderlichPages.groceryItemDetails),
+      child: GroceryItemScreen(
+        originalItem: item,
+        onUpdate: onUpdate,
+        onCreate: onCreate,
+        index: index,
+      )
+    );
+  }
+
+  GroceryItemScreen({this.onCreate, this.index, this.onUpdate, this.originalItem})
       : isUpdating = (originalItem != null);
 
   @override
@@ -80,7 +100,7 @@ class _GroceryItemScreenState extends State<GroceryItemScreen> {
                     _timeOfDay.minute,
                   ));
               if(widget.isUpdating)
-                widget.onUpdate(groceryItem);
+                widget.onUpdate(groceryItem,widget.index);
               else
                 widget.onCreate(groceryItem);
             },
@@ -99,7 +119,7 @@ class _GroceryItemScreenState extends State<GroceryItemScreen> {
             const SizedBox(
               height: 10,
             ),
-            buildColorPicker(),
+            buildColorPicker(context),
             const SizedBox(
               height: 10,
             ),
@@ -281,7 +301,7 @@ class _GroceryItemScreenState extends State<GroceryItemScreen> {
     );
   }
 
-  Widget buildColorPicker() {
+  Widget buildColorPicker(BuildContext context1) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -319,7 +339,7 @@ class _GroceryItemScreenState extends State<GroceryItemScreen> {
                     actions: [
                       TextButton(
                         onPressed: () {
-                          Navigator.of(context).pop();
+                          Navigator.of(ctx).pop();
                         },
                         child: const Text("Save"),
                       )

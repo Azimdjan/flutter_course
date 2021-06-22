@@ -3,6 +3,7 @@ import 'package:flutter/rendering.dart';
 import 'package:provider/provider.dart';
 import 'package:shop_app/models/cart.dart';
 import 'package:shop_app/models/product.dart';
+import 'package:shop_app/models/products.dart';
 import 'package:shop_app/screens/product_detail_screen.dart';
 
 class ProductItem extends StatelessWidget {
@@ -35,12 +36,15 @@ class ProductItem extends StatelessWidget {
               textAlign: TextAlign.center,
             ),
             leading: Consumer<Product>(
-              builder: (ctx, product, _) => IconButton(
-                onPressed: () {
-                  product.toggleFavorite();
+              builder: (ctx, currentProduct, _) => IconButton(
+                onPressed: () async {
+                  currentProduct.toggleFavorite();
+                  print(currentProduct.isFavourite);
+                  await Provider.of<Products>(ctx,listen: false)
+                      .updateFavorite(currentProduct.id, currentProduct.isFavourite);
                 },
                 icon: Icon(
-                  product.isFavourite ? Icons.favorite : Icons.favorite_border,
+                  currentProduct.isFavourite ? Icons.favorite : Icons.favorite_border,
                 ),
                 color: Theme.of(context).accentColor,
               ),

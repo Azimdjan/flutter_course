@@ -1,8 +1,10 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:shop_app/models/product.dart';
 import 'package:http/http.dart' as http;
+import 'httpException.dart';
 
 class Products with ChangeNotifier {
   List<Product> _products = [
@@ -52,9 +54,20 @@ class Products with ChangeNotifier {
     return _products;
   }
 
-  void deleteProduct(String id) {
-    _products.removeWhere((element) => element.id == id);
+  Future<void> deleteProduct(String id) async {
+    var url = Uri.parse(
+        'https://flutter-app-3eded-default-rtdb.firebaseio.com/products/$id');
+    final existingProductIndex = _products.indexWhere((element) => element.id==id);
+    Product? existingProduct = _products[existingProductIndex];
+    _products.removeAt(existingProductIndex);
     notifyListeners();
+    final response = await http.delete(url);
+    if(response.statusCode >= 400){
+      _products.insert(existingProductIndex, existingProduct);
+      notifyListeners();
+      throw HttpException("Could not delete product!");
+    }
+    existingProduct = null;
   }
 
   Future<void> updateProduct(String id, Product product) async {
@@ -71,6 +84,15 @@ class Products with ChangeNotifier {
     notifyListeners();
   }
 
+  Future<void> updateFavorite(String id, bool isFavorite) async{
+    var url = Uri.parse(
+        'https://flutter-app-3eded-default-rtdb.firebaseio.com/products/$id.json');
+    print("$isFavorite updateFavorites");
+    await http.patch(url,body: json.encode({
+      'isFavorite':isFavorite
+    }));
+  }
+
   Future<void> fetchProducts() async {
     try {
       var url = Uri.parse(
@@ -78,6 +100,8 @@ class Products with ChangeNotifier {
       final response = await http.get(url);
       final responseBody = json.decode(response.body) as Map<String, dynamic>;
       List<Product> loadedProducts = [];
+      if(responseBody==null)
+        return null;
       responseBody.forEach((productId, productData) {
         loadedProducts.insert(0,
             Product(

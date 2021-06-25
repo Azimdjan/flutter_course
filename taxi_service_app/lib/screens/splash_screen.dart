@@ -1,6 +1,6 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
+import '../theme.dart';
 import 'tutorial_screens/tutorial_page_view.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -24,36 +24,32 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.of(context).size;
+    final theme = Theme.of(context);
     return Scaffold(
       body: Container(
-        color: const Color(0xff343B71),
+        color: theme.primaryColor,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Container(
               width: double.infinity,
               height: mediaQuery.height * 0.1121,
-              decoration: const BoxDecoration(
-                color: Color(0xff3A4178),
+              decoration: BoxDecoration(
+                color: theme.accentColor,
                 borderRadius:
-                    BorderRadius.vertical(bottom: Radius.circular(20)),
+                    const BorderRadius.vertical(bottom: Radius.circular(20)),
               ),
             ),
             Column(
               children: [
                 Image.asset(
-                  'assets/icons/triangle.png',
+                  TaxiServiceAppTheme.triangleIcon,
                   semanticLabel: 'triangle icon',
                 ),
-                const Center(
+                Center(
                   child: Text(
                     'Alaska',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 38,
-                      fontFamily: 'SF-Pro-Display',
-                      fontWeight: FontWeight.w500,
-                    ),
+                    style: theme.textTheme.headline4,
                   ),
                 ),
               ],
@@ -61,9 +57,10 @@ class _SplashScreenState extends State<SplashScreen> {
             Container(
               width: double.infinity,
               height: mediaQuery.height * 0.1121,
-              decoration: const BoxDecoration(
-                color: Color(0xff3A4178),
-                borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+              decoration: BoxDecoration(
+                color: theme.accentColor,
+                borderRadius:
+                    const BorderRadius.vertical(top: Radius.circular(20)),
               ),
             ),
           ],

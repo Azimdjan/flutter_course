@@ -25,11 +25,7 @@ class MenuItems extends StatelessWidget {
           const SizedBox(width: 20),
           Text(
             title,
-            style: const TextStyle(
-                fontSize: 20,
-                fontFamily: 'SF-Pro-Display',
-                fontWeight: FontWeight.w500,
-                color: Colors.white),
+            style: Theme.of(context).textTheme.headline1
           ),
         ],
       ),

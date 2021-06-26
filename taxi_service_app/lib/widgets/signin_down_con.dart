@@ -21,14 +21,9 @@ class DownContainer extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            const Text(
+            Text(
               'CREATE AN ACCOUNT?',
-              style: TextStyle(
-                fontWeight: FontWeight.w500,
-                fontFamily: 'SF-Pro-Display',
-                fontSize: 14,
-                color: Color(0xff343B71),
-              ),
+              style: Theme.of(context).textTheme.bodyText2,
             ),
             const SizedBox(
               height: 10,
@@ -46,26 +41,18 @@ class DownContainer extends StatelessWidget {
                       .pushReplacementNamed(SignUpScreen.routeName);
                 },
                 color: Colors.white,
-                child: const Text(
+                child: Text(
                   'SIGN UP',
-                  style: TextStyle(
-                      fontSize: 17,
-                      fontFamily: 'SF-Pro-Display',
-                      fontWeight: FontWeight.w500,
-                      color: Color(0xff343B71)),
+                  style: Theme.of(context).textTheme.bodyText2,
                 ),
               ),
             ),
             const SizedBox(
               height: 10,
             ),
-            const Text(
+            Text(
               'OR',
-              style: TextStyle(
-                  fontSize: 14,
-                  fontFamily: 'SF-Pro-Display',
-                  fontWeight: FontWeight.w500,
-                  color: Color(0xff343B71)),
+              style: Theme.of(context).textTheme.bodyText2,
             ),
             const SizedBox(
               height: 10,
@@ -83,18 +70,13 @@ class DownContainer extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    const Text(
+                    Text(
                       'f',
                       textAlign: TextAlign.center,
-                      style: TextStyle(
-                        fontSize: 17,
-                        fontFamily: 'SF-Pro-Display',
-                        fontWeight: FontWeight.w400,
-                        color: Colors.white,
-                      ),
+                      style: Theme.of(context).textTheme.bodyText1,
                     ),
                     const SizedBox(
-                      width: 25,
+                      width: 20,
                     ),
                     Container(
                       width: 1,
@@ -102,15 +84,11 @@ class DownContainer extends StatelessWidget {
                       color: Colors.white70,
                     ),
                     const SizedBox(
-                      width: 25,
+                      width: 20,
                     ),
-                    const Text(
+                    Text(
                       'Sign Up With Facebook',
-                      style: TextStyle(
-                          fontSize: 14,
-                          fontFamily: 'SF-Pro-Display',
-                          fontWeight: FontWeight.w400,
-                          color: Colors.white),
+                      style: Theme.of(context).textTheme.bodyText1,
                     ),
                   ],
                 ),
@@ -132,16 +110,12 @@ class DownContainer extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    const Text(
+                    Text(
                       'G',
-                      style: TextStyle(
-                          fontSize: 17,
-                          fontFamily: 'SF-Pro-Display',
-                          fontWeight: FontWeight.w400,
-                          color: Colors.white),
+                      style: Theme.of(context).textTheme.bodyText1,
                     ),
                     const SizedBox(
-                      width: 19,
+                      width: 12,
                     ),
                     Container(
                       width: 1,
@@ -149,15 +123,11 @@ class DownContainer extends StatelessWidget {
                       color: Colors.white70,
                     ),
                     const SizedBox(
-                      width: 25,
+                      width: 20,
                     ),
-                    const Text(
+                    Text(
                       'Sign Up With Google',
-                      style: TextStyle(
-                          fontSize: 14,
-                          fontFamily: 'SF-Pro-Display',
-                          fontWeight: FontWeight.w400,
-                          color: Colors.white),
+                      style: Theme.of(context).textTheme.bodyText1,
                     ),
                   ],
                 ),

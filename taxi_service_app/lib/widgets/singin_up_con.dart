@@ -1,16 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:taxi_service_app/widgets/password_field.dart';
+import 'password_field.dart';
 import '../screens/user_screens/search_screen.dart';
 
-class UpContainer extends StatefulWidget {
+class UpContainer extends StatelessWidget {
   const UpContainer({Key? key}) : super(key: key);
-
-  @override
-  _UpContainerState createState() => _UpContainerState();
-}
-
-class _UpContainerState extends State<UpContainer> {
-  var _isVisible = true;
   @override
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.of(context).size;
@@ -47,11 +40,12 @@ class _UpContainerState extends State<UpContainer> {
           ),
           const TextField(
             controller: null,
+            style: TextStyle(color: Colors.white),
             decoration: InputDecoration(
               hintStyle: TextStyle(color: Color(0xff545C9B)),
-              contentPadding: EdgeInsets.symmetric(
-                  horizontal: 15, vertical: 10),
-              fillColor: Color(0xff282F62),
+              contentPadding:
+                  EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+              fillColor: Color(0xff311d64),
               filled: true,
               hintText: 'Otajonov Azim',
               enabledBorder: OutlineInputBorder(
@@ -86,20 +80,21 @@ class _UpContainerState extends State<UpContainer> {
             width: double.infinity,
             height: mediaQuery.height * 0.08,
             child: MaterialButton(
-                color: Colors.white,
-                onPressed: () {
-                  Navigator.of(context).pushReplacementNamed(
-                      SearchScreen.routeName);
-                },
-                child: const Text(
-                  'SIGN IN',
-                  style: TextStyle(
-                    fontSize: 17,
-                    color: Color(0xff343B71),
-                    fontFamily: 'SF-Pro-Display',
-                    fontWeight: FontWeight.w500,
-                  ),
-                )),
+              color: Colors.white,
+              onPressed: () {
+                Navigator.of(context)
+                    .pushReplacementNamed(SearchScreen.routeName);
+              },
+              child: const Text(
+                'SIGN IN',
+                style: TextStyle(
+                  fontSize: 17,
+                  color: Color(0xff343B71),
+                  fontFamily: 'SF-Pro-Display',
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+            ),
           )
         ],
       ),

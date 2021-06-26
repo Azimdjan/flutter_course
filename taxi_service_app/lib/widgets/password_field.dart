@@ -14,12 +14,13 @@ class _PasswordFieldState extends State<PasswordField> {
   Widget build(BuildContext context) {
     return TextField(
       obscureText: _isVisible,
+      style: const TextStyle(color: Colors.white),
       controller: null,
       decoration: InputDecoration(
         hintStyle: const TextStyle(color: Color(0xff545C9B)),
         contentPadding:
         const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
-        fillColor: const Color(0xff282F62),
+        fillColor: const Color(0xff311d64),
         filled: true,
         suffixIcon: IconButton(
           onPressed: () {

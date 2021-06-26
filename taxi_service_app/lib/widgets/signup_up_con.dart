@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:taxi_service_app/widgets/password_field.dart';
+import 'password_field.dart';
 
 class UpContainer extends StatefulWidget {
   const UpContainer({Key? key}) : super(key: key);
@@ -9,7 +9,6 @@ class UpContainer extends StatefulWidget {
 }
 
 class _UpContainerState extends State<UpContainer> {
-  var _isVisible = true;
   @override
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.of(context).size;
@@ -20,37 +19,23 @@ class _UpContainerState extends State<UpContainer> {
           const SizedBox(
             height: 20,
           ),
-          const Text(
-            'Create An Account',
-            style: TextStyle(
-              color: Colors.white,
-              fontFamily: 'SF-Pro-Display',
-              fontWeight: FontWeight.w500,
-              fontSize: 28,
-            ),
-          ),
+          Text('Create An Account',
+              style: Theme.of(context).textTheme.headline3),
           const SizedBox(
             height: 15,
           ),
-          const Text(
-            'NAME',
-            style: TextStyle(
-              color: Colors.white,
-              fontFamily: 'SF-Pro-Display',
-              fontWeight: FontWeight.w500,
-              fontSize: 17,
-            ),
-          ),
+          Text('NAME', style: Theme.of(context).textTheme.bodyText1),
           const SizedBox(
             height: 10,
           ),
           const TextField(
             controller: null,
+            style: TextStyle(color: Colors.white),
             decoration: InputDecoration(
               hintStyle: TextStyle(color: Color(0xff545C9B)),
               contentPadding:
                   EdgeInsets.symmetric(horizontal: 15, vertical: 10),
-              fillColor: Color(0xff282F62),
+              fillColor: Color(0xff311d64),
               filled: true,
               hintText: 'Otajonov Azim',
               enabledBorder: OutlineInputBorder(
@@ -64,25 +49,21 @@ class _UpContainerState extends State<UpContainer> {
           const SizedBox(
             height: 15,
           ),
-          const Text(
+          Text(
             'EMAIL ADDRESS',
-            style: TextStyle(
-              color: Colors.white,
-              fontFamily: 'SF-Pro-Display',
-              fontWeight: FontWeight.w500,
-              fontSize: 17,
-            ),
+            style: Theme.of(context).textTheme.bodyText1,
           ),
           const SizedBox(
             height: 10,
           ),
           const TextField(
             controller: null,
+            style: TextStyle(color: Colors.white),
             decoration: InputDecoration(
               hintStyle: TextStyle(color: Color(0xff545C9B)),
               contentPadding:
                   EdgeInsets.symmetric(horizontal: 15, vertical: 10),
-              fillColor: Color(0xff282F62),
+              fillColor: Color(0xff311d64),
               filled: true,
               hintText: 'example@email.com',
               enabledBorder: OutlineInputBorder(
@@ -96,15 +77,8 @@ class _UpContainerState extends State<UpContainer> {
           const SizedBox(
             height: 15,
           ),
-          const Text(
-            'ENTER NEW PASSWORD',
-            style: TextStyle(
-              color: Colors.white,
-              fontFamily: 'SF-Pro-Display',
-              fontWeight: FontWeight.w500,
-              fontSize: 17,
-            ),
-          ),
+          Text('ENTER NEW PASSWORD',
+              style: Theme.of(context).textTheme.bodyText1),
           const SizedBox(
             height: 10,
           ),
@@ -112,15 +86,8 @@ class _UpContainerState extends State<UpContainer> {
           const SizedBox(
             height: 15,
           ),
-          const Text(
-            'CONFIRM PASSWORD',
-            style: TextStyle(
-              color: Colors.white,
-              fontFamily: 'SF-Pro-Display',
-              fontWeight: FontWeight.w500,
-              fontSize: 17,
-            ),
-          ),
+          Text('CONFIRM PASSWORD',
+              style: Theme.of(context).textTheme.bodyText1),
           const SizedBox(
             height: 10,
           ),
@@ -135,15 +102,8 @@ class _UpContainerState extends State<UpContainer> {
             child: MaterialButton(
                 color: Colors.white,
                 onPressed: () {},
-                child: const Text(
-                  'SIGN UP',
-                  style: TextStyle(
-                    fontSize: 17,
-                    color: Color.fromRGBO(61, 41, 115, 1.0),
-                    fontFamily: 'SF-Pro-Display',
-                    fontWeight: FontWeight.w500,
-                  ),
-                )),
+                child: Text('SIGN UP',
+                    style: Theme.of(context).textTheme.bodyText2)),
           ),
           const SizedBox(
             height: 10,

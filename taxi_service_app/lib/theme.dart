@@ -37,6 +37,11 @@ class TaxiServiceAppTheme {
       fontWeight: FontWeight.w500,
       color: Colors.white30,
     ),
+    headline6: TextStyle(
+      fontSize: 17,
+      fontWeight: FontWeight.w500,
+      color: Color.fromRGBO(84, 92, 155, 1.0),
+    ),
   );
 
   static ThemeData darkTheme() {
@@ -45,6 +50,7 @@ class TaxiServiceAppTheme {
       fontFamily: 'SF-Pro-Display',
       primaryColor: const Color.fromRGBO(61, 41, 115, 1.0),
       accentColor: const Color.fromRGBO(67, 48, 122, 1.0),
+      hintColor: const Color(0xff282F62),
     );
   }
 
@@ -57,6 +63,9 @@ class TaxiServiceAppTheme {
   static const paymentIcon = 'assets/icons/payment.svg';
   static const promoIcon = 'assets/icons/promo.svg';
   static const settingsIcon = 'assets/icons/settings.svg';
+  static const toLocationIcon = 'assets/icons/toLocation.svg';
+  static const fromLocationIcon = 'assets/icons/fromLocationIcon.svg';
+  static const starIcon = 'assets/icons/starIcon.svg';
 
   static const avatar = 'assets/images/avatar.png';
   static const image1 = 'assets/images/image1.png';

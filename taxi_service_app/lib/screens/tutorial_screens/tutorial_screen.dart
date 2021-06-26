@@ -32,19 +32,6 @@ class TutorialScreen extends StatelessWidget {
             SizedBox(
               height: mediaQuery.height * 0.05,
             ),
-            Align(
-              alignment: Alignment.centerRight,
-              child: TextButton(
-                onPressed: () {
-                  Navigator.of(context)
-                      .pushReplacementNamed(SignInScreen.routeName);
-                },
-                child: Text(
-                  'Skip',
-                  style: Theme.of(context).textTheme.headline2,
-                ),
-              ),
-            ),
           ],
         ),
         Expanded(

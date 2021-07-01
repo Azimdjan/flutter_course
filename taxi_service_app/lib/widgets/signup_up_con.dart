@@ -1,16 +1,28 @@
 import 'package:flutter/material.dart';
+import '../models/form_validation.dart';
 import 'password_field.dart';
 
 class UpContainer extends StatefulWidget {
-  const UpContainer({Key? key}) : super(key: key);
+  UpContainer({Key? key}) : super(key: key);
+  var _isConfirm = true;
+  var _isName = true;
+  var _isEmail = true;
+  var _isPassword = true;
+  var _isDisibled = true;
 
   @override
   _UpContainerState createState() => _UpContainerState();
 }
 
 class _UpContainerState extends State<UpContainer> {
+  var nameController = TextEditingController();
+  var emailController = TextEditingController();
+  var passwordController = TextEditingController();
+  var confirmPasswordController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
+    final node = FocusScope.of(context);
     final mediaQuery = MediaQuery.of(context).size;
     return SingleChildScrollView(
       child: Column(
@@ -28,17 +40,28 @@ class _UpContainerState extends State<UpContainer> {
           const SizedBox(
             height: 10,
           ),
-          const TextField(
-            controller: null,
-            style: TextStyle(color: Colors.white),
+          TextField(
+            controller: nameController,
+            style: const TextStyle(color: Colors.white),
+            textInputAction: TextInputAction.next,
+            onEditingComplete: () {
+              isDisibled();
+              node.nextFocus();
+            },
             decoration: InputDecoration(
-              hintStyle: TextStyle(color: Color(0xff545C9B)),
+              errorBorder: const OutlineInputBorder(
+                borderSide: BorderSide(color: Colors.red, width: 2),
+              ),
+              errorText: widget._isName
+                  ? null
+                  : Validation.nameErrorText(nameController),
+              hintStyle: const TextStyle(color: Color(0xff545C9B)),
               contentPadding:
-                  EdgeInsets.symmetric(horizontal: 15, vertical: 10),
-              fillColor: Color(0xff311d64),
+                  const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+              fillColor: const Color(0xff311d64),
               filled: true,
               hintText: 'Otajonov Azim',
-              enabledBorder: OutlineInputBorder(
+              enabledBorder: const OutlineInputBorder(
                 borderSide: BorderSide(
                   width: 2,
                   color: Color(0xff545C9B),
@@ -56,17 +79,28 @@ class _UpContainerState extends State<UpContainer> {
           const SizedBox(
             height: 10,
           ),
-          const TextField(
-            controller: null,
-            style: TextStyle(color: Colors.white),
+          TextField(
+            controller: emailController,
+            style: const TextStyle(color: Colors.white),
+            onEditingComplete: () {
+              isDisibled();
+              node.nextFocus();
+            },
+            textInputAction: TextInputAction.next,
             decoration: InputDecoration(
-              hintStyle: TextStyle(color: Color(0xff545C9B)),
+              errorBorder: const OutlineInputBorder(
+                borderSide: BorderSide(color: Colors.red, width: 2),
+              ),
+              hintStyle: const TextStyle(color: Color(0xff545C9B)),
+              errorText: widget._isEmail
+                  ? null
+                  : Validation.emailErrorText(emailController),
               contentPadding:
-                  EdgeInsets.symmetric(horizontal: 15, vertical: 10),
-              fillColor: Color(0xff311d64),
+                  const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+              fillColor: const Color(0xff311d64),
               filled: true,
               hintText: 'example@email.com',
-              enabledBorder: OutlineInputBorder(
+              enabledBorder: const OutlineInputBorder(
                 borderSide: BorderSide(
                   width: 2,
                   color: Color(0xff545C9B),
@@ -82,7 +116,13 @@ class _UpContainerState extends State<UpContainer> {
           const SizedBox(
             height: 10,
           ),
-          const PasswordField(hint: 'new password'),
+          PasswordField(
+            hint: 'new password',
+            passwordController: passwordController,
+            isValid: widget._isPassword,
+            function: isDisibled,
+            node: node,
+          ),
           const SizedBox(
             height: 15,
           ),
@@ -91,7 +131,13 @@ class _UpContainerState extends State<UpContainer> {
           const SizedBox(
             height: 10,
           ),
-          const PasswordField(hint: 'confirm password'),
+          PasswordField(
+            hint: 'confirm password',
+            confirmController: confirmPasswordController,
+            isValid: widget._isConfirm,
+            function: isDisibled,
+            node: node,
+          ),
           const SizedBox(
             height: 25,
           ),
@@ -99,9 +145,24 @@ class _UpContainerState extends State<UpContainer> {
           Container(
             width: double.infinity,
             height: mediaQuery.height * 0.08,
-            child: MaterialButton(
-                color: Colors.white,
-                onPressed: () {},
+            child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                    primary: Colors.white, onSurface: Colors.white),
+                onPressed: !widget._isDisibled
+                    ? () {
+                        setState(() {
+                          print('hello');
+                          widget._isName =
+                              Validation.nameValidation(nameController);
+                          widget._isEmail =
+                              Validation.emailValidation(emailController);
+                          widget._isPassword =
+                              Validation.passwordValidation(passwordController);
+                          widget._isConfirm = Validation.confirmValidation(
+                              passwordController, confirmPasswordController);
+                        });
+                      }
+                    : null,
                 child: Text('SIGN UP',
                     style: Theme.of(context).textTheme.bodyText2)),
           ),
@@ -111,5 +172,17 @@ class _UpContainerState extends State<UpContainer> {
         ],
       ),
     );
+  }
+
+  void isDisibled() {
+    setState(() {
+      if (confirmPasswordController.text.length != 0 &&
+          passwordController.text.length != 0 &&
+          nameController.text.length != 0 &&
+          emailController.text.length != 0)
+        widget._isDisibled = false;
+      else
+        widget._isDisibled = true;
+    });
   }
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:taxi_service_app/screens/user_screens/add_new_card_screen.dart';
 import 'package:taxi_service_app/screens/user_screens/settings_screen.dart';
 import '../../layouts/with_out_appbar.dart';
 import '../../widgets/avatar.dart';
@@ -56,7 +57,7 @@ class MenuScreen extends StatelessWidget {
               const MenuItems(
                 fileName: TaxiServiceAppTheme.paymentIcon,
                 title: 'Payment Method',
-                direction: SearchScreen.routeName,
+                direction: AddNewCardScreen.routeName,
               ),
               const MenuItems(
                 fileName: TaxiServiceAppTheme.historyIcon,

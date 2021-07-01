@@ -18,8 +18,8 @@ class LayoutWithAppBar extends StatelessWidget {
     this.downContainer,
     this.actionButton,
     required this.isWriting,
-    required this.margin,}
-  );
+    required this.margin,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -50,6 +50,7 @@ class LayoutWithAppBar extends StatelessWidget {
         ),
         backgroundColor: Theme.of(context).primaryColor,
         body: Container(
+          width: double.infinity,
           height: double.infinity,
           decoration: const BoxDecoration(
             color: Color.fromRGBO(253, 253, 254, 1.0),
@@ -57,23 +58,21 @@ class LayoutWithAppBar extends StatelessWidget {
               top: Radius.circular(50),
             ),
           ),
-          child: SingleChildScrollView(
-            child: Column(
-              // mainAxisAlignment: margin
-              //     ? MainAxisAlignment.spaceBetween
-              //     : MainAxisAlignment.start,
-              children: [
-                Container(
-                  margin: margin
-                      ? const EdgeInsets.only(
-                          bottom: 332.6, top: 20, left: 20, right: 20)
-                      : const EdgeInsets.only(
+          child: Stack(
+            fit: StackFit.expand,
+            children: [
+              SingleChildScrollView(
+                child: Container(
+                  margin: const EdgeInsets.only(
                       bottom: 0, top: 20, left: 20, right: 20),
                   child: child,
                 ),
-                downContainer ?? Container()
-              ],
-            ),
+              ),
+              Positioned(
+                bottom: 0,
+                child: downContainer ?? Container(height: 1,width: 1,),
+              ),
+            ],
           ),
         ),
         floatingActionButton: isWriting ? null : actionButton,

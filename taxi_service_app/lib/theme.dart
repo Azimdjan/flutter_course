@@ -66,6 +66,10 @@ class TaxiServiceAppTheme {
   static const toLocationIcon = 'assets/icons/toLocation.svg';
   static const fromLocationIcon = 'assets/icons/fromLocationIcon.svg';
   static const starIcon = 'assets/icons/starIcon.svg';
+  static const qrcodeIcon = 'assets/icons/qrcodeIcon.svg';
+  static const downIcon = 'assets/icons/downIcon.svg';
+  static const cashIcon = 'assets/icons/cashIcon.png';
+  static const masterCardIcon = 'assets/icons/masterCardIcon.png';
 
   static const avatar = 'assets/images/avatar.png';
   static const image1 = 'assets/images/image1.png';
@@ -73,4 +77,5 @@ class TaxiServiceAppTheme {
   static const image3 = 'assets/images/image3.png';
   static const rectangle = 'assets/images/Rectangle.png';
   static const vector = 'assets/images/Vector.svg';
+  static const confirmationImage = 'assets/images/confirmationImage.png';
 }

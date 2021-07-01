@@ -1,11 +1,29 @@
 import 'package:flutter/material.dart';
+import '../models/form_validation.dart';
 import 'password_field.dart';
 import '../screens/user_screens/search_screen.dart';
 
-class UpContainer extends StatelessWidget {
-  const UpContainer({Key? key}) : super(key: key);
+class UpContainer extends StatefulWidget {
+  UpContainer({Key? key}) : super(key: key);
+
+  @override
+  _UpContainerState createState() => _UpContainerState();
+}
+
+class _UpContainerState extends State<UpContainer> {
+  var nameController = TextEditingController();
+
+  var passwordController = TextEditingController();
+
+  var _isPassword = true;
+
+  var _isDisibled = true;
+
+  var _isName = true;
+
   @override
   Widget build(BuildContext context) {
+    final node = FocusScope.of(context);
     final mediaQuery = MediaQuery.of(context).size;
     return SingleChildScrollView(
       child: Column(
@@ -38,17 +56,27 @@ class UpContainer extends StatelessWidget {
           const SizedBox(
             height: 15,
           ),
-          const TextField(
-            controller: null,
-            style: TextStyle(color: Colors.white),
+          TextField(
+            controller: nameController,
+            style: const TextStyle(color: Colors.white),
+            textInputAction: TextInputAction.next,
+            onEditingComplete: (){
+              node.nextFocus();
+              isDisibled();
+            },
             decoration: InputDecoration(
-              hintStyle: TextStyle(color: Color(0xff545C9B)),
+              errorBorder: const OutlineInputBorder(
+                borderSide: BorderSide(color: Colors.red, width: 2),
+              ),
+              errorText:
+                  _isName ? null : Validation.nameErrorText(nameController),
+              hintStyle: const TextStyle(color: Color(0xff545C9B)),
               contentPadding:
-                  EdgeInsets.symmetric(horizontal: 15, vertical: 10),
-              fillColor: Color(0xff311d64),
+                  const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+              fillColor: const Color(0xff311d64),
               filled: true,
               hintText: 'Otajonov Azim',
-              enabledBorder: OutlineInputBorder(
+              enabledBorder: const OutlineInputBorder(
                 borderSide: BorderSide(
                   width: 2,
                   color: Color(0xff545C9B),
@@ -71,7 +99,13 @@ class UpContainer extends StatelessWidget {
           const SizedBox(
             height: 15,
           ),
-          const PasswordField(hint: 'password'),
+          PasswordField(
+            hint: 'password',
+            passwordController: passwordController,
+            isValid: _isPassword,
+            function: isDisibled,
+            node: node,
+          ),
           const SizedBox(
             height: 25,
           ),
@@ -79,12 +113,13 @@ class UpContainer extends StatelessWidget {
           Container(
             width: double.infinity,
             height: mediaQuery.height * 0.08,
-            child: MaterialButton(
-              color: Colors.white,
-              onPressed: () {
+            child: ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                  primary: Colors.white, onSurface: Colors.white),
+              onPressed:!_isDisibled ? () {
                 Navigator.of(context)
                     .pushReplacementNamed(SearchScreen.routeName);
-              },
+              } : null,
               child: const Text(
                 'SIGN IN',
                 style: TextStyle(
@@ -99,5 +134,15 @@ class UpContainer extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  void isDisibled() {
+    setState(() {
+      if (passwordController.text.length != 0 &&
+          nameController.text.length != 0)
+        _isDisibled = false;
+      else
+        _isDisibled = true;
+    });
   }
 }

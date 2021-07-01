@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:taxi_service_app/screens/user_screens/add_new_card_screen.dart';
+import 'package:taxi_service_app/screens/user_screens/confirmation_screen.dart';
 import 'package:taxi_service_app/screens/user_screens/history_screen.dart';
 import 'package:taxi_service_app/screens/user_screens/settings_screen.dart';
 import 'theme.dart';
@@ -34,6 +36,8 @@ class MyApp extends StatelessWidget {
         MenuScreen.routeName: (ctx) => const MenuScreen(),
         SettingsScreen.routeName: (ctx) => SettingsScreen(),
         HistoryScreen.routeName: (ctx) => HistoryScreen(),
+        AddNewCardScreen.routeName: (ctx) => AddNewCardScreen(),
+        ConfirmationScreen.routeName: (ctx) => const ConfirmationScreen(),
       },
     );
   }

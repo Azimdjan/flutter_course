@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
 
 // ignore: must_be_immutable
-class DownContainer extends StatefulWidget {
-  const DownContainer({Key? key}) : super(key: key);
+class RequestContainer extends StatefulWidget {
+  final PageController controller;
+
+  const RequestContainer({Key? key, required this.controller})
+      : super(key: key);
 
   @override
-  _DownContainerState createState() => _DownContainerState();
+  _RequestContainerState createState() => _RequestContainerState();
 }
 
-class _DownContainerState extends State<DownContainer> {
+class _RequestContainerState extends State<RequestContainer> {
   var _isSelected = false;
 
   void toggleButton() {
@@ -21,14 +24,19 @@ class _DownContainerState extends State<DownContainer> {
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.of(context).size;
     return Container(
-      width: double.infinity,
-      height: mediaQuery.height * 0.35,
+      // width: mediaQuery.width * 1,
+      // height: mediaQuery.height * 0.1,
+      margin: EdgeInsets.only(
+        top: mediaQuery.height * 0.3,
+        right: mediaQuery.width * 0.01,
+        left: mediaQuery.width * 0.01,
+      ),
       decoration: BoxDecoration(
         borderRadius: const BorderRadius.vertical(top: Radius.circular(20)),
         color: Theme.of(context).primaryColor,
       ),
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 30,vertical: 0),
+        padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
@@ -39,9 +47,7 @@ class _DownContainerState extends State<DownContainer> {
                   height: 50,
                   width: 50,
                   decoration: BoxDecoration(
-                    color: _isSelected
-                        ? const Color(0xff282F62)
-                        : Colors.white,
+                    color: _isSelected ? const Color(0xff282F62) : Colors.white,
                     borderRadius: const BorderRadius.all(
                       Radius.circular(5),
                     ),
@@ -128,7 +134,11 @@ class _DownContainerState extends State<DownContainer> {
               ],
             ),
             FlatButton(
-              onPressed: () {},
+              onPressed: () {
+                widget.controller.animateToPage(widget.controller.initialPage+1,
+                    duration: const Duration(seconds: 2),
+                    curve: Curves.linear);
+              },
               minWidth: double.infinity,
               height: 50,
               color: Colors.white,

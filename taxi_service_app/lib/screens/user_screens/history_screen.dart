@@ -108,6 +108,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
       title: 'History',
       isWriting: false,
       margin: false,
+      isCompleted: false,
     );
   }
 

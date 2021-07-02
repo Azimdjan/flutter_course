@@ -36,6 +36,7 @@ class _AddNewCardScreenState extends State<AddNewCardScreen> {
       title: 'Add New Card',
       isWriting: false,
       margin: false,
+      isCompleted: false,
     );
   }
 

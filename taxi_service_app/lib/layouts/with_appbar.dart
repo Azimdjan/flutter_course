@@ -6,17 +6,21 @@ import '../screens/user_screens/menu_screen.dart';
 class LayoutWithAppBar extends StatelessWidget {
   final Widget child;
   final String title;
+  Widget? googleMap;
   Widget? downContainer;
   Widget? actionButton;
   bool isWriting;
   bool margin;
+  bool isCompleted;
 
   // ignore: use_key_in_widget_constructors
   LayoutWithAppBar({
     required this.child,
     required this.title,
+    this.googleMap,
     this.downContainer,
     this.actionButton,
+    required this.isCompleted,
     required this.isWriting,
     required this.margin,
   });
@@ -59,8 +63,8 @@ class LayoutWithAppBar extends StatelessWidget {
             ),
           ),
           child: Stack(
-            fit: StackFit.expand,
             children: [
+              Positioned(top: 0, child: googleMap ?? Container(height: 1,)),
               SingleChildScrollView(
                 child: Container(
                   margin: const EdgeInsets.only(
@@ -68,14 +72,19 @@ class LayoutWithAppBar extends StatelessWidget {
                   child: child,
                 ),
               ),
-              Positioned(
+              isCompleted ? Positioned(
                 bottom: 0,
-                child: downContainer ?? Container(height: 1,width: 1,),
-              ),
+                // ignore: sized_box_for_whitespace
+                child: downContainer ??
+                    Container(
+                      height: 1,
+                      width: 1,
+                    ),
+              ) : Container(),
             ],
           ),
         ),
-        floatingActionButton: isWriting ? null : actionButton,
+        floatingActionButton: isWriting || isCompleted ? null : actionButton,
       ),
     );
   }

@@ -44,6 +44,7 @@ class SettingsScreen extends StatelessWidget {
       title: 'Settings',
       isWriting: false,
       margin: false,
+      isCompleted: false,
     );
   }
 

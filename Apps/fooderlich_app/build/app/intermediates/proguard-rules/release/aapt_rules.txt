@@ -1,0 +1,6 @@
+# Referenced at /media/azimdjan/Azimdjan/Flutter course/Flutter_Apprentice_Repo/flta-materials/09-shared-preferences/projects/starter/build/app/intermediates/merged_manifests/release/AndroidManifest.xml:19
+-keep class androidx.core.app.CoreComponentFactory { <init>(); }
+# Referenced at /media/azimdjan/Azimdjan/Flutter course/Flutter_Apprentice_Repo/flta-materials/09-shared-preferences/projects/starter/build/app/intermediates/merged_manifests/release/AndroidManifest.xml:24
+-keep class com.raywenderlich.recipe_finder.MainActivity { <init>(); }
+# Referenced at /media/azimdjan/Azimdjan/Flutter course/Flutter_Apprentice_Repo/flta-materials/09-shared-preferences/projects/starter/build/app/intermediates/merged_manifests/release/AndroidManifest.xml:19
+-keep class io.flutter.app.FlutterApplication { <init>(); }

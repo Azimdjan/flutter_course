@@ -1,0 +1,4 @@
+#Sat Jun 19 23:14:09 UZT 2021
+base.0=/media/azimdjan/Azimdjan/Flutter course/Flutter_Apprentice_Repo/flta-materials/09-shared-preferences/projects/starter/build/app/intermediates/dex/debug/mergeDexDebug/out/classes.dex
+path.0=classes.dex
+renamed.0=classes.dex

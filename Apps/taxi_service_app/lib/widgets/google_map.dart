@@ -3,9 +3,9 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
-class GoogleMaps extends StatefulWidget {
-  final Completer<GoogleMapController> controller;
-  const GoogleMaps({Key? key,required this.controller}) : super(key: key);
+class GoogleMaps extends StatefulWidget with ChangeNotifier{
+  Completer<GoogleMapController> controller = Completer();
+  GoogleMaps({Key? key,required this.controller}) : super(key: key);
   @override
   _GoogleMapsState createState() => _GoogleMapsState();
 }

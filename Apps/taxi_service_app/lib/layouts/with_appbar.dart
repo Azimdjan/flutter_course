@@ -28,7 +28,7 @@ class LayoutWithAppBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return KeyboardDismisser(
-      gestures: [GestureType.onTap, GestureType.onPanUpdateDownDirection],
+      gestures: [GestureType.onTap],
       child: Scaffold(
         appBar: AppBar(
           backgroundColor: Theme.of(context).primaryColor,
@@ -64,7 +64,12 @@ class LayoutWithAppBar extends StatelessWidget {
           ),
           child: Stack(
             children: [
-              Positioned(top: 0, child: googleMap ?? Container(height: 1,)),
+              Positioned(
+                  top: 0,
+                  child: googleMap ??
+                      Container(
+                        height: 1,
+                      )),
               SingleChildScrollView(
                 child: Container(
                   margin: const EdgeInsets.only(
@@ -72,19 +77,23 @@ class LayoutWithAppBar extends StatelessWidget {
                   child: child,
                 ),
               ),
-              isCompleted ? Positioned(
-                bottom: 0,
-                // ignore: sized_box_for_whitespace
-                child: downContainer ??
-                    Container(
-                      height: 1,
-                      width: 1,
-                    ),
-              ) : Container(),
+              isCompleted
+                  ? Positioned(
+                      bottom: 0,
+                      // ignore: sized_box_for_whitespace
+                      child: downContainer ??
+                          Container(
+                            height: 1,
+                            width: 1,
+                          ),
+                    )
+                  : Container(),
             ],
           ),
         ),
         floatingActionButton: isWriting || isCompleted ? null : actionButton,
+        floatingActionButtonLocation:
+            FloatingActionButtonLocation.startFloat,
       ),
     );
   }

@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:taxi_service_app/screens/user_screens/add_new_card_screen.dart';
-import 'package:taxi_service_app/screens/user_screens/confirmation_screen.dart';
-import 'package:taxi_service_app/screens/user_screens/history_screen.dart';
-import 'package:taxi_service_app/screens/user_screens/settings_screen.dart';
+import 'package:taxi_service_app/screens/user_screens/test_screen.dart';
+import 'screens/user_screens/add_new_card_screen.dart';
+import 'screens/user_screens/confirmation_screen.dart';
+import 'screens/user_screens/history_screen.dart';
+import 'screens/user_screens/settings_screen.dart';
 import 'theme.dart';
 import 'screens/auth_screens/signin_screen.dart';
 import 'screens/auth_screens/sign_up_screen.dart';
@@ -29,6 +30,7 @@ class MyApp extends StatelessWidget {
       theme: TaxiServiceAppTheme.darkTheme(),
       routes: {
         '/': (ctx) => const SplashScreen(),
+        // '/': (ctx) => TestScreen(),
         TutorialPageView.routeName: (ctx) => const TutorialPageView(),
         SignInScreen.routeName: (ctx) => const SignInScreen(),
         SignUpScreen.routeName: (ctx) => const SignUpScreen(),

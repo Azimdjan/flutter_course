@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import '../../widgets/google_map.dart';
+import 'package:taxi_service_app/models/location.dart';
 import '../../widgets/search_payment_con.dart';
 import '../../widgets/search_seat_con.dart';
 import '../../layouts/with_appbar.dart';
@@ -21,11 +21,17 @@ class SearchScreen extends StatefulWidget {
 class _SearchScreenState extends State<SearchScreen> {
   final TextEditingController _firstController = TextEditingController();
   final TextEditingController _secondController = TextEditingController();
-  final Completer<GoogleMapController> _controller = Completer();
+  late GoogleMapController googleMapController;
   PageController controller = PageController(initialPage: 0);
   var _isCompleted = false;
   var _isWriting = false;
   var _isSecond = false;
+
+  @override
+  void dispose() {
+    googleMapController.dispose();
+    super.dispose();
+  }
 
   @override
   void initState() {
@@ -181,28 +187,53 @@ class _SearchScreenState extends State<SearchScreen> {
     );
   }
 
-  Widget buildGoogleMap(BuildContext context) {
-    print('Google maps');
-    return GoogleMaps(controller: _controller);
-  }
-
   Widget buildActionButton(BuildContext context) {
     return FloatingActionButton(
       backgroundColor: Theme.of(context).primaryColor,
-      onPressed: () {
-        _gotoLake();
+      onPressed: () async {
+        final location = await CurrentLocation.getLoc();
+        googleMapController.animateCamera(CameraUpdate.newCameraPosition(
+          CameraPosition(
+              target: location,
+              bearing: 192.8334901395799,
+              tilt: 59.440717697143555,
+              zoom: 19.151926040649414),
+        ));
       },
       child: const Icon(Icons.my_location),
     );
   }
 
-  Future<void> _gotoLake() async {
-    final controller = await _controller.future;
-    controller.animateCamera(CameraUpdate.newCameraPosition(
-        const CameraPosition(
-            bearing: 192.8334901395799,
-            target: LatLng(37.43296265331129, -122.08832357078792),
-            tilt: 59.440717697143555,
-            zoom: 19.151926040649414)));
+  Widget buildGoogleMap(BuildContext context) {
+    return Container(
+      height: MediaQuery.of(context).size.height * 0.87,
+      width: MediaQuery.of(context).size.width,
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(50),
+        child: GoogleMap(
+          mapType: MapType.normal,
+          initialCameraPosition: _kGooglePlex,
+          onMapCreated: (GoogleMapController controller) {
+            googleMapController = controller;
+          },
+        ),
+      ),
+    );
+  }
+
+  static const CameraPosition _kGooglePlex = CameraPosition(
+    target: LatLng(37.42796133580664, -122.085749655962),
+    zoom: 14.4746,
+  );
+
+  static const CameraPosition _kLake = CameraPosition(
+      bearing: 192.8334901395799,
+      target: LatLng(37.43296265331129, -122.08832357078792),
+      tilt: 59.440717697143555,
+      zoom: 19.151926040649414);
+
+  Future<void> gotoLake() async {
+    print('hello');
+    googleMapController.animateCamera(CameraUpdate.newCameraPosition(_kLake));
   }
 }

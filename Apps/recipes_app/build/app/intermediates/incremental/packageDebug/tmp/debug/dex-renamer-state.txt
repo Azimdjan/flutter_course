@@ -1,0 +1,4 @@
+#Sat Jul 03 10:49:23 UZT 2021
+base.0=/media/azimdjan/Azimdjan/Flutter course/Flutter_Projects/Apps/fooderlich_app/build/app/intermediates/dex/debug/mergeDexDebug/out/classes.dex
+path.0=classes.dex
+renamed.0=classes.dex

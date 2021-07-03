@@ -1,0 +1,44 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_app/models/app_state.dart';
+import 'package:provider/provider.dart';
+import 'package:flutter_app/models/models.dart';
+
+class EmptyGroceryScreen extends StatelessWidget{
+  const EmptyGroceryScreen();
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(30),
+      child: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            AspectRatio(
+              aspectRatio: 2/1,
+              child: Image.asset('assets/fooderlich_assets/empty_list.png'),
+            ),
+            SizedBox(height: 8,),
+            Text("No groceries",style: TextStyle(fontSize: 21),),
+            SizedBox(height: 12,),
+            Text('Shopping for ingredients?\n'
+                'Tap the + button to write them down!',
+              textAlign: TextAlign.center,),
+            MaterialButton(
+              textColor: Colors.white,
+              child: const Text("Browse Recipes"),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(30)
+              ),
+              color: Colors.green,
+              onPressed: (){
+                Provider.of<AppStateManager>(context,listen: false).goToRecipes();
+              },
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+}
